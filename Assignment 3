@@ -1,1 +1,30 @@
 35. 1.0, 2.4, 7.2, 5.3
+
+37. (A v B)' v (A' ^ B)
+    (A' ^ B') v (A' ^ B)  De Morgan's Laws
+    A' ^ (B' v B)         distributive property
+    A' ^ 1                (B' v B) is a tautology
+    A'                    identity property
+
+    if not (Value1 < Value2) then
+      statement 1
+    else
+      statement 2
+    end if
+
+38. No, the program should be written:
+
+    if not A and not B and C then
+      statement 1
+    else
+      statement 2
+    end if
+
+61. Percival is a truth teller and Llewellyn is a liar.  If Percival is a liar, his statement would still be true, which contradicts the
+    fact that he is a liar.  Therefore, he must be a truth teller and according to his statement, Llewellyn must be a liar.
+
+62.
+
+63.
+
+64.
