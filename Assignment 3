@@ -23,8 +23,13 @@
 61. Percival is a truth teller and Llewellyn is a liar.  If Percival is a liar, his statement would still be true, which contradicts the
     fact that he is a liar.  Therefore, he must be a truth teller and according to his statement, Llewellyn must be a liar.
 
-62.
+62. Merlin is a truth teller and Meredith is a truth teller.  If Merlin is a liar, then his statement is false, meaning the statement
+    would be, "If I am a truth teller, then Meredith is a liar."  However, this implication is a false statement.  Therefore, Merlin is a
+    truth teller and Meredith is also a truth teller.
 
-63.
+63. Rothwold is a truth teller and Grymlin is a truth teller.  If Rothwold is a liar, then his statement is false, making (A v B)' true.
+    By De Morgan's laws, A' ^ B' is also true.  However A' suggests that Rothwold is a truth teller, which contradicts him being a liar.
+    Therefore, Rothwold is a truth teller and according to his statement, Grymlin is also a truth teller.
 
-64.
+64. Gwendolyn is a liar and Merrilaine is a liar.  Gwendolyn's statement can't be true if she is a truth teller because she states, "I am a
+    liar," which would not be true.  Since Gwendolyn is a liar, her statement is false.  Therefore, Merrilaine is also a liar.
