@@ -1,0 +1,8 @@
+18. a) (∀x)[S(x) -> I(x)]
+    b) (Ǝx)[S(x) ^ I(x) ^ M(x)]
+    c) (∀x)[M(x) -> S(x) ^ I(x)']
+    d) (∀x)[M(x) -> S(x) ^ I(x)]
+
+25. a) John is handsome and Kathy loves John.
+    b) All men are handsome.
+    c) Women only love handsome men.
