@@ -1,0 +1,15 @@
+(P -> Q) <-> (Q' -> P')
+(P' v Q) <-> (Q' -> P')  implication
+(P' v Q) <-> (Q'' v P')  implication
+(P' v Q) <-> (P' v Q'')  commutative
+(P' v Q) <-> (P' v Q)    double negation
+
+(P -> R) ^ (Q -> R) <-> (P v Q) -> R
+(P' v R) ^ (Q -> R) <-> (P v Q) -> R  implication
+(P' v R) ^ (Q' v R) <-> (P v Q) -> R  implication
+(P' v R) ^ (Q' v R) <-> (P v Q)' v R  implication
+(R v P') ^ (Q' v R) <-> (P v Q)' v R  commutative
+(R v P') ^ (R v Q') <-> (P v Q)' v R  commutative
+R v (P' ^ Q') <-> (P v Q)' v R        distributive
+R v (P' ^ Q') <-> (P' ^ Q') v R       De Morgan's Laws
+(P' ^ Q') v R <-> (P' ^ Q') v R       commutative
