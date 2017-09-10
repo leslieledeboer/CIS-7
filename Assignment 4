@@ -13,3 +13,13 @@
 R v (P' ^ Q') <-> (P v Q)' v R        distributive
 R v (P' ^ Q') <-> (P' ^ Q') v R       De Morgan's Laws
 (P' ^ Q') v R <-> (P' ^ Q') v R       commutative
+
+[(P ^ Q) -> R]' <-> P ^ Q ^ R'
+[(P ^ Q)' v R]' <-> P ^ Q ^ R'  implication
+(P ^ Q)'' ^ R' <-> P ^ Q ^ R'   De Morgan's Laws
+P ^ Q ^ R' <-> P ^ Q ^ R'       double negation
+
+[P ^ (P v F)] v (P ^ Q) ^ Q <-> P ^ Q
+(P ^ P) v (P ^ Q) ^ Q <-> P ^ Q        identity
+P ^ (P v Q) ^ Q <-> P ^ Q              distributive
+P ^ Q <-> P ^ Q                        absorption
