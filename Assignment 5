@@ -10,7 +10,8 @@
     e) There exists one pretty woman who loves only handsome men.
     f) John loves all pretty women.
 
-34. a)
-    b)
-    c)
-    d)
+34. a) The wff is not valid when the domain consists of all animals, A(x) means that x is a cat, and B(x) means that x is a dog.
+    b) The wff is not valid when the domain of x consists of all boys, the domain of y consists of all girls, and P(x,y): x loves y.
+    c) The wff is not valid when the domain consists of all animals, P(x) means that x is a cat, and Q(x) means that x has whiskers.
+    d) The wff is not valid when the domain consists of all people and A(x) means that x likes mint. "All people do not like mint" is not
+       the same as "Not all people like mint."
