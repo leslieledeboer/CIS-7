@@ -1,0 +1,38 @@
+Prove: If n = 25, 100, or 169, then n is a perfect square and is the sum of two perfect squares.  Indicate which method of proof you used.
+
+  Exhaustive Proof:
+
+  n = k^2 , n = a^2 + b^2
+
+  Case 1: n = 25, k = 5, a = 3, b = 4
+  Case 2: n = 100, k = 10, a = 6, b = 8
+  Case 3: n = 169, k = 13, a = 5, b = 12
+
+Prove: The sum of two odd integers is even.
+
+  x = 2m + 1 , y = 2m + 1 , x + y = 2k
+
+  x + y = (2m + 1) + (2n + 1)
+  x + y = 2m + 2n + 2
+  x + y = 2(m + n + 1)
+  x + y = 2k
+
+Prove: The sum of an even integer and its square is even.
+
+  x = 2k , y = (2k)^2 , x + y = 2p
+
+  x + y = 2k + (2k)^2
+  x + y = 2k + 4k^2
+  x + y = 2(k + 2k^2)
+  x + y = 2p
+
+Prove: If n squared is odd, then n is odd.
+
+  Contradiction:
+
+  n^2 is odd and n is even
+  (2k)^2 is odd and 2k is even
+  4k^2 is odd and 2k is even
+  2(2k^2) is odd and 2k is even
+  2p is odd and 2k is even
+  False!
