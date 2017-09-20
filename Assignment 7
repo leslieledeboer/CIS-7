@@ -30,9 +30,9 @@ Prove: If n squared is odd, then n is odd.
 
   Contradiction:
 
-  n^2 is odd and n is even
-  (2k)^2 is odd and 2k is even
-  4k^2 is odd and 2k is even
-  2(2k^2) is odd and 2k is even
-  2p is odd and 2k is even
-  False!
+  n^2 is odd and n is not odd
+  (2k)^2 is odd and 2k is not odd
+  4k^2 is odd and 2k is not odd
+  2(2k^2) is odd and 2k is not odd
+  2p is odd and 2k is not odd
+  False! 2p cannot be odd.
