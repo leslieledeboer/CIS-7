@@ -43,3 +43,26 @@ n^3 + 3n^2 + 5n + 3
 3m + 3n^2 + 3n + 3
 3(m + n^2 + n + 1)
 3y (divisible by 3)
+
+Prove that for n >= 1, 9^n − 1 is divisible by 8 for all non-negative integers
+
+Base case:
+
+9^1 - 1 is divisible by 8
+9 - 1 is divisible by 8
+8 is divisible by 8
+True
+
+Step 2:
+
+9^n - 1 = 8m
+9^n = 8m + 1
+
+9^(n + 1) - 1
+(9^n * 9^1) - 1
+(9^n * 9) - 1
+9(8m + 1) - 1
+72m + 9 - 1
+72m + 8
+8(9m + 1)
+8y (divisible by 8)
