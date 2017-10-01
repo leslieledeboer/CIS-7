@@ -52,6 +52,8 @@ int main()
         cout << "The prime numbers are: ";
         printPrime(primeNumbers, number);
     }
+    
+    return 0;
 }
 
 bool isPrime(int number)
