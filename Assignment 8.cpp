@@ -44,7 +44,6 @@ int main()
         cout << "Correct! There are " << answer << " prime numbers in between 0 and " << number << "." << endl << endl;
         cout << "The prime numbers are: ";
         printPrime(primeNumbers, number);
-        
     }
     
     else
