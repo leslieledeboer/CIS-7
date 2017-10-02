@@ -1,5 +1,5 @@
-//  Assignment 10
-//  Leslie Ledeboer
+// Assignment 10
+// Leslie Ledeboer
 
 #include <iostream>
 #include <vector>
