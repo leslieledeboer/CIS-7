@@ -2,11 +2,11 @@
 // Leslie Ledeboer
 
 #include <iostream>
+#include <iomanip>
 #include <ctime>
 
 using namespace std;
 
-int findMinimum(int, int);
 int bruteForce(int, int);
 int euclidean(int, int);
 
@@ -30,29 +30,34 @@ int main()
     
     if (number1 < number2)
     {
-        int sum = number1 + number2;
-        number1 = sum - number1;
-        number2 = sum - number2;
+        swap(number1, number2);
     }
 
     start1 = clock();
     
-    int GCD1 = bruteForce(number1, number2);
+    int gcd1 = bruteForce(number1, number2);
     
     double duration1 = (clock() - start1) / (double) CLOCKS_PER_SEC;
     
     start2 = clock();
     
-    int GCD2 = euclidean(number1, number2);
+    int gcd2 = euclidean(number1, number2);
     
     double duration2 = (clock() - start2) / (double) CLOCKS_PER_SEC;
     
-    cout << "GCD found using brute force: " << GCD1 << endl << endl;
-    cout << "GCD found using Euclidean algorithm: " << GCD2 << endl << endl;
+    cout << fixed << setprecision(10);
+    
+    cout << "GCD found using brute force: " << gcd1 << endl << endl;
+    cout << "GCD found using Euclidean algorithm: " << gcd2 << endl << endl;
     cout << "Time duration using brute force: " << duration1 << " seconds" << endl << endl;
     cout << "Time duration using Euclidean algorithm: " << duration2 << " seconds" << endl << endl;
     
-    if (duration1 < duration2)
+    if (duration1 == duration2)
+    {
+        cout << "Both methods took the same amount of time." << endl << endl;
+    }
+    
+    else if (duration1 < duration2)
     {
         cout << "Brute force was the faster method." << endl << endl;
     }
@@ -67,11 +72,11 @@ int main()
 
 int bruteForce(int number1, int number2)
 {
-    int i = 1, GCD = 1;
+    int i = 1, gcd = 1;
     
     if (number2 == 0)
     {
-        GCD = number1;
+        gcd = number1;
     }
     
     else
@@ -80,14 +85,14 @@ int bruteForce(int number1, int number2)
         {
             if (number1 % i == 0 && number2 % i == 0)
             {
-                GCD = i;
+                gcd = i;
             }
             
             i++;
         }
     }
     
-    return GCD;
+    return gcd;
 }
 
 int euclidean(int number1, int number2)
