@@ -1,11 +1,6 @@
 // Assignment 13
 // Leslie Ledeboer
 
-// move n disks from start to end using aux
-// move n-1 disks from start to aux using end
-// move nth disk from start to end
-// move n-1 disks from aux to end using start
-
 #include <iostream>
 #include <vector>
 
@@ -15,15 +10,16 @@ typedef unsigned int uint;
 
 struct tower
 {
-    vector <uint> towerDisks;
     char name;
+    vector <uint> disks;
 };
 
-void initializeTowerA(uint, tower &);
+void initialize(uint, tower &);
 void moveDisk(tower &, tower &);
-bool checkWin(uint, const tower &);
-void solveRecursive(const uint, uint, tower &, tower &, tower &);
+void solve(const uint, uint, tower &, tower &, tower &);
 void printTower(uint, const tower &);
+bool checkEnd(uint, const tower &);
+void clearPause();
 
 int main()
 {
@@ -42,79 +38,115 @@ int main()
         
     } while (disks < 1);
     
-    initializeTowerA(disks, towerA);
+    cin.ignore();
     
-    solveRecursive(disks, disks, towerA, towerB, towerC);
+    initialize(disks, towerA);
     
-    if (checkWin(disks, towerC))
+    solve(disks, disks, towerA, towerB, towerC);
+    
+    if (checkEnd(disks, towerC))
     {
-        cout << "You won!" << endl << endl;
+        cout << "Solved!" << endl << endl;
     }
-    
-    // wait for user input
-    // accept any key for user input
-    // clear the screen
     
     return 0;
 }
 
-void initializeTowerA(uint disks, tower &towerA)
+void initialize(uint disks, tower &towerA)
 {
     for (int i = disks; i >= 1; i--)
     {
-        towerA.towerDisks.push_back(i);
+        towerA.disks.push_back(i);
     }
 }
 
 void moveDisk(tower &source, tower &destination)
 {
-    if (destination.towerDisks.empty() || source.towerDisks.back() < destination.towerDisks.back())
+    if (destination.disks.empty() || source.disks.back() < destination.disks.back())
     {
-        destination.towerDisks.push_back(source.towerDisks.back());
+        destination.disks.push_back(source.disks.back());
         
-        cout << "Move disk " << source.towerDisks.back() << " to Tower " << source.name << endl << endl;
+        cout << "Move disk " << source.disks.back() << " from " << source.name << " to " << destination.name << endl << endl;
         
-        source.towerDisks.pop_back();
+        source.disks.pop_back();
     }
 }
 
-bool checkWin(uint disks, const tower &towerC)
-{
-    return towerC.towerDisks.size() == disks;
-}
-
-void solveRecursive(const uint constantDisks, uint disks, tower &towerS, tower &towerA, tower &towerD)
+void solve(const uint constantDisks, uint disks, tower &towerSource, tower &towerAux, tower &towerDest)
 {
     if (disks == 0)
     {
         return;
     }
     
-    printTower(constantDisks, towerS);
-    printTower(constantDisks, towerA);
-    printTower(constantDisks, towerD);
+    solve(constantDisks, disks - 1, towerSource, towerDest, towerAux);
     
-    solveRecursive(constantDisks, disks - 1, towerS, towerD, towerA);
+    moveDisk(towerSource, towerDest);
     
-    moveDisk(towerS, towerD);
+    if (towerSource.name == 'A')
+    {
+        printTower(constantDisks, towerSource);
+    }
     
-    solveRecursive(constantDisks, disks - 1, towerA, towerS, towerD);
+    else if (towerDest.name == 'A')
+    {
+        printTower(constantDisks, towerDest);
+    }
+    
+    else
+    {
+        printTower(constantDisks, towerAux);
+    }
+    
+    if (towerSource.name == 'B')
+    {
+        printTower(constantDisks, towerSource);
+    }
+    
+    else if (towerDest.name == 'B')
+    {
+        printTower(constantDisks, towerDest);
+    }
+    
+    else
+    {
+        printTower(constantDisks, towerAux);
+    }
+    
+    if (towerSource.name == 'C')
+    {
+        printTower(constantDisks, towerSource);
+    }
+    
+    else if (towerDest.name == 'C')
+    {
+        printTower(constantDisks, towerDest);
+    }
+    
+    else
+    {
+        printTower(constantDisks, towerAux);
+    }
+    
+    clearPause();
+    
+    solve(constantDisks, disks - 1, towerAux, towerSource, towerDest);
 }
 
-void printTower(uint disks, const tower &towerPrinting)
+void printTower(uint disks, const tower &towerPrint)
 {
-    cout << "Tower " << towerPrinting.name << ": ";
+    cout << "Tower " << towerPrint.name << ": ";
     
     for (int i = disks - 1; i >= 0; i--)
     {
-        if (disks > towerPrinting.towerDisks.size())
+        if (towerPrint.disks.empty() || i >= towerPrint.disks.size())
         {
             cout << "-";
         }
         
         else
         {
-            cout << towerPrinting.towerDisks[i];
+            cout << towerPrint.disks[i];
         }
         
         if (i != 0)
@@ -123,5 +155,24 @@ void printTower(uint disks, const tower &towerPrinting)
         }
     }
     
-    cout << endl;
+    cout << endl << endl;
+}
+
+bool checkEnd(uint disks, const tower &towerC)
+{
+    return towerC.disks.size() == disks;
+}
+
+void clearPause()
+{
+    cout << "Press any key to continue: ";
+    
+    cin.ignore();
+    
+    cin.get();
+    
+    for (int i = 0; i <= 1000; i++)
+    {
+        cout << endl;
+    }
 }
