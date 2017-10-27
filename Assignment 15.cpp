@@ -4,17 +4,18 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
-int displayMenu(vector <string>, vector <string>);
-void displaySet(vector <string>);
-vector <string> addElement(vector <string> &);
-void intersection(vector <string>, vector <string>);
-void unionOfSets(vector <string>, vector <string>);
-void difference(vector <string>, vector <string>);
-void crossProduct(vector <string>, vector <string>);
-void powerset(vector <string>);
+int displayMenu(const vector <string> &, const vector <string> &);
+void displaySet(const vector <string> &);
+void addElement(vector <string> &);
+void findIntersection(const vector <string> &, const vector <string> &);
+void findUnionOfSets(const vector <string> &, const vector <string> &);
+void findDifference(const vector <string> &, const vector <string> &);
+void findCrossProduct(vector <string>, vector <string>);
+void findPowerset(vector <string>);
 
 int main()
 {
@@ -29,17 +30,17 @@ int main()
     
     switch (choice)
     {
-        case 1:
+        case 1: addElement(setA);
             
-        case 2:
+        case 2: addElement(setB);
             
-        case 3:
+        case 3: findIntersection(setA, setB);
             
-        case 4:
+        case 4: findUnionOfSets(setA, setB);
             
-        case 5:
+        case 5: findDifference(setA, setB);
             
-        case 6:
+        case 6: findDifference(setB, setA);
             
         case 7:
             
@@ -51,18 +52,22 @@ int main()
             
         case 11:
             
-        default:
+        default: cout << "Error." << endl;
     }
     
     return 0;
 }
 
-int displayMenu(vector <string> setA, vector <string> setB)
+int displayMenu(const vector <string> & setA, const vector <string> & setB)
 {
     int choice;
     
-    // cout << "Set A: " << displaySet(setA) << endl;
-    // cout << "Set B: " << displaySet(setB) << endl;
+    cout << "Set A: ";
+    displaySet(setA);
+    
+    cout << "Set B: ";
+    displaySet(setB);
+    
     cout << "(1) Add element to set A" << endl;
     cout << "(2) Add element to set B" << endl;
     cout << "(3) Find intersection" << endl;
@@ -82,25 +87,35 @@ int displayMenu(vector <string> setA, vector <string> setB)
     return choice;
 }
 
-void displaySet(vector <string> set)
+void displaySet(const vector <string> & set)
 {
-    for (int i = 0; i < set.size(); i++)
+    cout << "{";
+    
+    if (set.size() == 0)
     {
-        if (i == set.size() - 1)
+        cout << " } ";
+    }
+    
+    else
+    {
+        for (int i = 0; i < set.size(); i++)
         {
-            cout << set[i] << endl;
-        }
-        
-        else
-        {
-            cout << set[i] << ", ";
+            if (i == set.size() - 1)
+            {
+                cout << set[i] << "} ";
+            }
+            
+            else
+            {
+                cout << set[i] << ", ";
+            }
         }
     }
     
-    // display cardinality of set (number of elements)
+    cout << "|" << set.size() << "|" << endl;
 }
 
-vector <string> addElement(vector <string> & set)
+void addElement(vector <string> & set)
 {
     string element;
     
@@ -108,41 +123,45 @@ vector <string> addElement(vector <string> & set)
     getline(cin, element);
     cout << endl;
     
+    cin.ignore();
+    
     set.push_back(element);
+}
+
+void findIntersection(const vector <string> & setA, const vector <string> & setB)
+{
+    vector <string> intersection;
     
-    return set;
-}
-
-void intersection(vector <string>, vector <string>)
-{
-    // for each element in set A, search for the same element in set B
-    // add found element to a new vector called intersection
-    // display the elements of the intersection vector
-    // display the number of elements of the intersection vector
-}
-
-void unionOfSets(vector <string>, vector <string>)
-{
-    // store all elements of both sets into a new vector called unionOfSets
-    // remove duplicates
-    // display the elements of the unionOfSets vector
-    // display the number of elements of the unionOfSets vector
-}
-
-void difference(vector <string>, vector <string>)
-{
-    // store all elements from first set into a new vector called difference
-    // if any elements are also found in second set, remove from difference vector
-    // display the remaining elements of the difference vector
-    // display the number of elements of the difference vector
-}
-
-void crossProduct(vector <string>, vector <string>)
-{
+    set_intersection(setA.begin(), setA.end(), setB.begin(), setB.end(), back_inserter(intersection));
     
+    displaySet(intersection);
 }
 
-void powerset(vector <string>)
+void findUnionOfSets(const vector <string> & setA, const vector <string> & setB)
+{
+    vector <string> unionOfSets;
+    
+    set_union(setA.begin(), setA.end(), setB.begin(), setB.end(), back_inserter(unionOfSets));
+
+    displaySet(unionOfSets);
+}
+
+void findDifference(const vector <string> & first, const vector <string> & second)
+{
+    vector <string> difference;
+    
+    set_difference(first.begin(), first.end(), second.begin(), second.end(), inserter(difference, difference.begin()));
+    
+    displaySet(difference);
+}
+
+void findCrossProduct(vector <string>, vector <string>)
+{
+    // for each element in the first set, loop through all elements in the second set
+    // display ordered pairs
+}
+
+void findPowerset(vector <string>)
 {
     
 }
