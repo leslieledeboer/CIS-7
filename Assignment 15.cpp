@@ -5,17 +5,21 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <tuple>
 
 using namespace std;
 
 int displayMenu(const vector <string> &, const vector <string> &);
-void displaySet(const vector <string> &);
+template <typename T> void displaySet(const vector <T> &);
 void addElement(vector <string> &);
 void findIntersection(const vector <string> &, const vector <string> &);
 void findUnionOfSets(const vector <string> &, const vector <string> &);
 void findDifference(const vector <string> &, const vector <string> &);
-void findCrossProduct(vector <string>, vector <string>);
-void findPowerset(vector <string>);
+void findCrossProduct(const vector <string> &, const vector <string> &);
+ostream & operator<<(ostream &, const tuple<string, string> &);
+void findPowerset(const vector <string> &);
+void increment(vector <bool> &);
+ostream & operator<<(ostream &, const vector <string> &);
 
 int main()
 {
@@ -24,36 +28,50 @@ int main()
     
     do
     {
-        choice = displayMenu(setA, setB);
+        do
+        {
+            choice = displayMenu(setA, setB);
+            
+        } while (choice < 1 || choice > 11);
         
-    } while (choice < 1 || choice > 11);
-    
-    switch (choice)
-    {
-        case 1: addElement(setA);
-            
-        case 2: addElement(setB);
-            
-        case 3: findIntersection(setA, setB);
-            
-        case 4: findUnionOfSets(setA, setB);
-            
-        case 5: findDifference(setA, setB);
-            
-        case 6: findDifference(setB, setA);
-            
-        case 7:
-            
-        case 8:
-            
-        case 9:
-            
-        case 10:
-            
-        case 11:
-            
-        default: cout << "Error." << endl;
-    }
+        switch (choice)
+        {
+            case 1: addElement(setA);
+                    break;
+                
+            case 2: addElement(setB);
+                    break;
+                
+            case 3: findIntersection(setA, setB);
+                    break;
+                
+            case 4: findUnionOfSets(setA, setB);
+                    break;
+                
+            case 5: findDifference(setA, setB);
+                    break;
+                
+            case 6: findDifference(setB, setA);
+                    break;
+                
+            case 7: findCrossProduct(setA, setB);
+                    break;
+                
+            case 8: findCrossProduct(setB, setA);
+                    break;
+                
+            case 9: findPowerset(setA);
+                    break;
+                
+            case 10: findPowerset(setB);
+                     break;
+                
+            case 11: break;
+                
+            default: cout << "Error." << endl << endl;
+        }
+        
+    } while (choice != 11);
     
     return 0;
 }
@@ -78,7 +96,7 @@ int displayMenu(const vector <string> & setA, const vector <string> & setB)
     cout << "(8) Find B X A" << endl;
     cout << "(9) Find powerset of set A" << endl;
     cout << "(10) Find powerset of set B" << endl;
-    cout << "(11) Exit program" << endl;
+    cout << "(11) Exit program" << endl << endl;
     
     cout << "Enter a number 1 - 11: ";
     cin >> choice;
@@ -87,7 +105,7 @@ int displayMenu(const vector <string> & setA, const vector <string> & setB)
     return choice;
 }
 
-void displaySet(const vector <string> & set)
+template <typename T> void displaySet(const vector <T> & set)
 {
     cout << "{";
     
@@ -112,18 +130,18 @@ void displaySet(const vector <string> & set)
         }
     }
     
-    cout << "|" << set.size() << "|" << endl;
+    cout << "|" << set.size() << "|" << endl << endl;
 }
 
 void addElement(vector <string> & set)
 {
     string element;
     
+    cin.ignore();
+    
     cout << "Enter a new element: ";
     getline(cin, element);
     cout << endl;
-    
-    cin.ignore();
     
     set.push_back(element);
 }
@@ -155,13 +173,89 @@ void findDifference(const vector <string> & first, const vector <string> & secon
     displaySet(difference);
 }
 
-void findCrossProduct(vector <string>, vector <string>)
+void findCrossProduct(const vector <string> & first, const vector <string> & second)
 {
-    // for each element in the first set, loop through all elements in the second set
-    // display ordered pairs
+    vector <tuple<string, string>> crossProduct;
+    
+    for (int i = 0; i < first.size(); i++)
+    {
+        for (int j = 0; j < second.size(); j++)
+        {
+            crossProduct.push_back(make_tuple(first[i], second[j]));
+        }
+    }
+    
+    displaySet(crossProduct);
 }
 
-void findPowerset(vector <string>)
+ostream & operator<<(ostream & lhs, const tuple<string, string> & rhs)
 {
+    lhs << "(" << get<0>(rhs) << ", " << get<1>(rhs) << ")";
     
+    return lhs;
+}
+
+void findPowerset(const vector <string> & set)
+{
+    vector <bool> binary(set.size());
+    
+    vector <vector <string>> powerset(1 << set.size());
+    
+    for (int i = 0; i < powerset.size(); i++)
+    {
+        vector <string> element;
+        
+        for (int j = 0; j < set.size(); j++)
+        {
+            if (binary[j])
+            {
+                element.push_back(set[j]);
+            }
+        }
+        
+        powerset[i] = element;
+        
+        increment(binary);
+    }
+    
+    displaySet(powerset);
+}
+
+void increment(vector <bool> & binary)
+{
+    bool carry = true;
+    
+    for (int i = 0; i < binary.size() && carry; i++)
+    {
+        if (binary[i])
+        {
+            carry = true;
+        }
+        
+        else
+        {
+            carry = false;
+        }
+        
+        binary[i] = !binary[i];
+    }
+}
+
+ostream & operator<<(ostream & lhs, const vector <string> & rhs)
+{
+    lhs << "{";
+    
+    for (int i = 0; i < rhs.size(); i++)
+    {
+        lhs << rhs[i];
+        
+        if (i + 1 < rhs.size())
+        {
+            lhs << ", ";
+        }
+    }
+    
+    lhs << "}";
+    
+    return lhs;
 }
