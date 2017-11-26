@@ -4,54 +4,32 @@
 
 #include "graph.h"
 
-Vertex::Edge::Edge(Vertex *head, Vertex *tail)
+Graph::Vertex::Edge::Edge(Vertex * head, Vertex * tail):_head(head), _tail(tail)
 {
-    _head = head;
-    _tail = tail;
 }
 
-const Vertex * Vertex::Edge::head() const
+const Graph::Vertex * Graph::Vertex::Edge::head() const
 {
     return _head;
 }
 
-const Vertex * Vertex::Edge::tail() const
+const Graph::Vertex * Graph::Vertex::Edge::tail() const
 {
     return _tail;
 }
 
-unsigned int Vertex::degrees() const
+unsigned long Graph::Vertex::degrees() const
 {
-    unsigned int count = 0;
-    
-    for (int i = 0; i < _edges.size(); i++)
-    {
-        if (_edges[i].head() == _edges[i].tail())
-        {
-            count += 2;
-        }
-        
-        else
-        {
-            count++;
-        }
-    }
-    
-    return count;
+    return _edges.size();
 }
 
-unsigned int Vertex::degrees(const Vertex & other) const
+unsigned int Graph::Vertex::degrees(const Vertex & other) const
 {
     unsigned int count = 0;
     
     for (int i = 0; i < other._edges.size(); i++)
     {
-        if (other._edges[i].head() == this && other._edges[i].tail() == this)
-        {
-            count += 2;
-        }
-        
-        else if (other._edges[i].tail() == this)
+        if (other._edges[i].tail() == this)
         {
             count++;
         }
@@ -60,7 +38,7 @@ unsigned int Vertex::degrees(const Vertex & other) const
     return count;
 }
 
-Vertex & Vertex::addEdge(Vertex & other)
+Graph::Vertex & Graph::Vertex::addEdge(Vertex & other)
 {
     _edges.push_back(Edge(this, & other));
     
@@ -69,17 +47,59 @@ Vertex & Vertex::addEdge(Vertex & other)
     return * this;
 }
 
-vector <vector<unsigned int>> getAdjacency(const vector <Vertex> & graph)
+bool Graph::Vertex::isOnlyLoops() const
 {
-    vector <vector<unsigned int>> adjacency(graph.size());
-    
-    for (int i = 0; i < graph.size(); i++)
+    if (degrees(* this) == degrees())
     {
-        for (int j = 0; j < graph.size(); j++)
+        return true;
+    }
+    
+    return false;
+}
+
+Graph::~Graph()
+{
+    for (int i = 0; i < _vertices.size(); i++)
+    {
+        delete _vertices[i];
+    }
+}
+
+Graph & Graph::addVertex()
+{
+    Vertex * vertex = new Vertex;
+    
+    _vertices.push_back(vertex);
+    
+    return * this;
+}
+
+vector <vector<unsigned int>> Graph::getAdjacency() const
+{
+    vector <vector<unsigned int>> adjacency(_vertices.size());
+    
+    for (int i = 0; i < _vertices.size(); i++)
+    {
+        for (int j = 0; j < _vertices.size(); j++)
         {
-            adjacency[i].push_back(graph[i].degrees(graph[j]));
+            adjacency[i].push_back(_vertices[i]->degrees(* _vertices[j]));
         }
     }
     
     return adjacency;
+}
+
+unsigned long Graph::size() const
+{
+    return _vertices.size();
+}
+
+Graph::Vertex * & Graph::operator[](unsigned long index)
+{
+    return _vertices[index];
+}
+
+Graph::Vertex * Graph::operator[](unsigned long index) const
+{
+    return _vertices[index];
 }

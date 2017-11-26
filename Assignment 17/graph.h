@@ -9,32 +9,48 @@
 
 using namespace std;
 
-class Vertex
+class Graph
 {
-    private:
+private:
     
+    class Vertex
+    {
+    private:
+        
         class Edge
         {
-            private:
-            
-                Vertex *_head, *_tail;
-            
-            public:
-            
-                Edge(Vertex *, Vertex *);
-                const Vertex * head() const;
-                const Vertex * tail() const;
+        private:
+                    
+            Vertex * _head;
+            Vertex * _tail;
+                    
+        public:
+                    
+            Edge(Vertex *, Vertex *);
+            const Vertex * head() const;
+            const Vertex * tail() const;
         };
-    
+            
         vector <Edge> _edges;
-    
+            
     public:
-    
-        unsigned int degrees() const;
+            
+        unsigned long degrees() const;
         unsigned int degrees(const Vertex &) const;
         Vertex & addEdge(Vertex &);
+        bool isOnlyLoops() const;
+    };
+    
+    vector <Vertex *> _vertices;
+    
+public:
+    
+    ~Graph();
+    Graph & addVertex();
+    vector <vector<unsigned int>> getAdjacency() const;
+    unsigned long size() const;
+    Vertex * & operator[](unsigned long);
+    Vertex * operator[](unsigned long) const;
 };
-
-vector <vector<unsigned int>> getAdjacency(const vector <Vertex> &);
 
 #endif
